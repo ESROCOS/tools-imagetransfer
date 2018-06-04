@@ -1,0 +1,18 @@
+-- H2020 ESROCOS Project
+-- Company: GMV Aerospace & Defence S.A.U.
+-- Licence: GPLv2
+
+
+UserDefs-DataChunk-Types DEFINITIONS ::=
+BEGIN
+
+IMPORTS 
+T-UInt32 FROM TASTE-BasicTypes;
+
+-- Dummy type (TASTE cannot import ASN.1 files that contain only constants)
+DummyChunk-T ::= T-UInt32
+
+-- Data chunk size: 32kB
+chunkBytes T-UInt32 ::= 32768
+
+END

@@ -1,0 +1,29 @@
+--  This file was generated automatically: DO NOT MODIFY IT !
+
+--  This file contains a part of the system CONCURRENCY VIEW.
+--  It is an input file for OCARINA.
+
+package vt_imagesender_chunktrigger_CV_Thread
+public
+	with Deployment;
+	with process_package;
+	with Dataview;
+
+THREAD vt_imagesender_chunktrigger_vt_imagesender_chunktrigger
+features
+	OUTPORT_sendChunk_vt : OUT EVENT DATA PORT DataView::DataChunk_Buffer.impl;
+END vt_imagesender_chunktrigger_vt_imagesender_chunktrigger;
+
+THREAD IMPLEMENTATION vt_imagesender_chunktrigger_vt_imagesender_chunktrigger.others
+PROPERTIES
+	Initialize_Entrypoint_Source_Text => "imagesender_wrappers.C_Init_imagesender";
+	Compute_Entrypoint_Source_Text => "vt_imagesender_chunktrigger_wrappers.artificial_chunkTrigger";
+	Dispatch_Protocol => Periodic;
+	Period            => 50 ms;
+	Dispatch_Offset   => 0 ms;
+	Compute_Execution_Time => 0 ms .. 0 ms;
+	Stack_Size => 5 KByte;
+	Priority => 10;
+END vt_imagesender_chunktrigger_vt_imagesender_chunktrigger.others;
+
+end vt_imagesender_chunktrigger_CV_Thread;

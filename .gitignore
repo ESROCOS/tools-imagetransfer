@@ -1,0 +1,9 @@
+build
+doc/Doxyfile
+*.swp
+*.zip
+model/__*.aadl
+model/*.md5
+model/*.pro
+model/*.old
+model/binary.c

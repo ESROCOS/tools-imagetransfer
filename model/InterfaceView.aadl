@@ -1,0 +1,276 @@
+---------------------------------------------------
+-- AADL2.1
+-- TASTE type interfaceview
+-- 
+-- generated code: do not edit
+---------------------------------------------------
+
+PACKAGE interfaceview::IV::ImageSender
+PUBLIC
+
+WITH interfaceview::IV::ImageReceiver;
+WITH Taste;
+WITH DataView;
+WITH TASTE_IV_Properties;
+SUBPROGRAM PI_setFrameToSend
+FEATURES
+  frame : IN PARAMETER DataView::Base_samples_frame_Frame {
+    Taste::encoding => NATIVE;
+  };
+PROPERTIES
+  Taste::Associated_Queue_Size => 1;
+END PI_setFrameToSend;
+
+SUBPROGRAM IMPLEMENTATION PI_setFrameToSend.others
+PROPERTIES
+  Compute_Execution_Time => 0 ms .. 0 ms;
+END PI_setFrameToSend.others;
+
+SUBPROGRAM PI_chunkTrigger
+END PI_chunkTrigger;
+
+SUBPROGRAM IMPLEMENTATION PI_chunkTrigger.others
+PROPERTIES
+  Compute_Execution_Time => 0 ms .. 0 ms;
+END PI_chunkTrigger.others;
+
+SUBPROGRAM RI_sendChunk
+FEATURES
+  chunk : IN PARAMETER DataView::DataChunk {
+    Taste::encoding => NATIVE;
+  };
+END RI_sendChunk;
+
+SUBPROGRAM IMPLEMENTATION RI_sendChunk.others
+END RI_sendChunk.others;
+
+SYSTEM ImageSender
+FEATURES
+  PI_setFrameToSend : PROVIDES SUBPROGRAM ACCESS interfaceview::IV::ImageSender::PI_setFrameToSend.others {
+    Taste::coordinates => "124406 84724";
+    Taste::RCMoperationKind => protected;
+    Taste::RCMperiod => 0 ms;
+    Taste::Deadline => 0 ms;
+    Taste::InterfaceName => "setFrameToSend";
+  };
+  PI_chunkTrigger : PROVIDES SUBPROGRAM ACCESS interfaceview::IV::ImageSender::PI_chunkTrigger.others {
+    Taste::coordinates => "124406 71180";
+    Taste::RCMoperationKind => cyclic;
+    Taste::RCMperiod => 100 ms;
+    Taste::Deadline => 0 ms;
+    Taste::InterfaceName => "chunkTrigger";
+  };
+  RI_sendChunk : REQUIRES SUBPROGRAM ACCESS interfaceview::IV::ImageReceiver::PI_receiveChunk.others {
+    Taste::coordinates => "148185 86615";
+    Taste::RCMoperationKind => any;
+    Taste::InterfaceName => "sendChunk";
+    Taste::labelInheritance => "false";
+  };
+PROPERTIES
+  Source_Language => (C);
+  Taste::Active_Interfaces => any;
+  Source_Text => ("/home/esrocos/esrocos_workspace/install/share/taste_components/imagetransfer_functions/imagesender.zip");
+END ImageSender;
+
+SYSTEM IMPLEMENTATION ImageSender.others
+END ImageSender.others;
+
+END interfaceview::IV::ImageSender;
+
+PACKAGE interfaceview::IV::ImageReceiver
+PUBLIC
+
+WITH interfaceview::IV::TestConsumer;
+WITH Taste;
+WITH DataView;
+WITH TASTE_IV_Properties;
+SUBPROGRAM PI_receiveChunk
+FEATURES
+  chunk : IN PARAMETER DataView::DataChunk {
+    Taste::encoding => NATIVE;
+  };
+PROPERTIES
+  Taste::Associated_Queue_Size => 3;
+END PI_receiveChunk;
+
+SUBPROGRAM IMPLEMENTATION PI_receiveChunk.others
+PROPERTIES
+  Compute_Execution_Time => 0 ms .. 0 ms;
+END PI_receiveChunk.others;
+
+SUBPROGRAM RI_setReceivedFrame
+FEATURES
+  frame : IN PARAMETER DataView::Base_samples_frame_Frame {
+    Taste::encoding => NATIVE;
+  };
+END RI_setReceivedFrame;
+
+SUBPROGRAM IMPLEMENTATION RI_setReceivedFrame.others
+END RI_setReceivedFrame.others;
+
+SYSTEM ImageReceiver
+FEATURES
+  PI_receiveChunk : PROVIDES SUBPROGRAM ACCESS interfaceview::IV::ImageReceiver::PI_receiveChunk.others {
+    Taste::coordinates => "179365 83937";
+    Taste::RCMoperationKind => sporadic;
+    Taste::RCMperiod => 0 ms;
+    Taste::Deadline => 0 ms;
+    Taste::InterfaceName => "receiveChunk";
+  };
+  RI_setReceivedFrame : REQUIRES SUBPROGRAM ACCESS interfaceview::IV::TestConsumer::PI_receiveFrame.others {
+    Taste::coordinates => "201412 86299";
+    Taste::RCMoperationKind => any;
+    Taste::InterfaceName => "setReceivedFrame";
+    Taste::labelInheritance => "false";
+  };
+PROPERTIES
+  Source_Language => (C);
+  Taste::Active_Interfaces => any;
+  Source_Text => ("/home/esrocos/esrocos_workspace/install/share/taste_components/imagetransfer_functions/imagereceiver.zip");
+END ImageReceiver;
+
+SYSTEM IMPLEMENTATION ImageReceiver.others
+END ImageReceiver.others;
+
+END interfaceview::IV::ImageReceiver;
+
+PACKAGE interfaceview::IV::TestProducer
+PUBLIC
+
+WITH interfaceview::IV::ImageSender;
+WITH Taste;
+WITH DataView;
+WITH TASTE_IV_Properties;
+SUBPROGRAM PI_trigger
+END PI_trigger;
+
+SUBPROGRAM IMPLEMENTATION PI_trigger.others
+PROPERTIES
+  Compute_Execution_Time => 0 ms .. 0 ms;
+END PI_trigger.others;
+
+SUBPROGRAM RI_sendFrame
+FEATURES
+  frame : IN PARAMETER DataView::Base_samples_frame_Frame {
+    Taste::encoding => NATIVE;
+  };
+END RI_sendFrame;
+
+SUBPROGRAM IMPLEMENTATION RI_sendFrame.others
+END RI_sendFrame.others;
+
+SYSTEM TestProducer
+FEATURES
+  PI_trigger : PROVIDES SUBPROGRAM ACCESS interfaceview::IV::TestProducer::PI_trigger.others {
+    Taste::coordinates => "85509 71809";
+    Taste::RCMoperationKind => cyclic;
+    Taste::RCMperiod => 10000 ms;
+    Taste::Deadline => 0 ms;
+    Taste::InterfaceName => "trigger";
+  };
+  RI_sendFrame : REQUIRES SUBPROGRAM ACCESS interfaceview::IV::ImageSender::PI_setFrameToSend.others {
+    Taste::coordinates => "103147 85511";
+    Taste::RCMoperationKind => any;
+    Taste::InterfaceName => "sendFrame";
+    Taste::labelInheritance => "false";
+  };
+PROPERTIES
+  Source_Language => (C);
+  Taste::Active_Interfaces => any;
+  Source_Text => ("/home/esrocos/esrocos_workspace/install/share/taste_components/imagetransfer_functions/testproducer.zip");
+END TestProducer;
+
+SYSTEM IMPLEMENTATION TestProducer.others
+END TestProducer.others;
+
+END interfaceview::IV::TestProducer;
+
+PACKAGE interfaceview::IV::TestConsumer
+PUBLIC
+
+WITH Taste;
+WITH DataView;
+WITH TASTE_IV_Properties;
+SUBPROGRAM PI_receiveFrame
+FEATURES
+  frame : IN PARAMETER DataView::Base_samples_frame_Frame {
+    Taste::encoding => NATIVE;
+  };
+PROPERTIES
+  Taste::Associated_Queue_Size => 1;
+END PI_receiveFrame;
+
+SUBPROGRAM IMPLEMENTATION PI_receiveFrame.others
+PROPERTIES
+  Compute_Execution_Time => 0 ms .. 0 ms;
+END PI_receiveFrame.others;
+
+SYSTEM TestConsumer
+FEATURES
+  PI_receiveFrame : PROVIDES SUBPROGRAM ACCESS interfaceview::IV::TestConsumer::PI_receiveFrame.others {
+    Taste::coordinates => "218734 84095";
+    Taste::RCMoperationKind => protected;
+    Taste::RCMperiod => 0 ms;
+    Taste::Deadline => 0 ms;
+    Taste::InterfaceName => "receiveFrame";
+  };
+PROPERTIES
+  Source_Language => (C);
+  Taste::Active_Interfaces => any;
+  Source_Text => ("/home/esrocos/esrocos_workspace/install/share/taste_components/imagetransfer_functions/testconsumer.zip");
+END TestConsumer;
+
+SYSTEM IMPLEMENTATION TestConsumer.others
+END TestConsumer.others;
+
+END interfaceview::IV::TestConsumer;
+
+PACKAGE interfaceview::IV
+PUBLIC
+
+WITH interfaceview::IV::ImageSender;
+WITH interfaceview::IV::ImageReceiver;
+WITH interfaceview::IV::TestProducer;
+WITH interfaceview::IV::TestConsumer;
+WITH Taste;
+WITH DataView;
+WITH TASTE_IV_Properties;
+SYSTEM interfaceview
+PROPERTIES
+  Taste::dataView => ("DataView");
+  Taste::dataViewPath => ("DataView.aadl");
+END interfaceview;
+
+SYSTEM IMPLEMENTATION interfaceview.others
+SUBCOMPONENTS
+  ImageSender : SYSTEM interfaceview::IV::ImageSender::ImageSender.others {
+    Taste::coordinates => "124406 68030 148185 90549";
+  };
+  ImageReceiver : SYSTEM interfaceview::IV::ImageReceiver::ImageReceiver.others {
+    Taste::coordinates => "179365 68187 201412 89761";
+  };
+  TestProducer : SYSTEM interfaceview::IV::TestProducer::TestProducer.others {
+    Taste::coordinates => "85509 68659 103147 89761";
+  };
+  TestConsumer : SYSTEM interfaceview::IV::TestConsumer::TestConsumer.others {
+    Taste::coordinates => "218734 68345 236529 90391";
+  };
+CONNECTIONS
+  ImageSender_PI_setFrameToSend_TestProducer_RI_sendFrame : SUBPROGRAM ACCESS ImageSender.PI_setFrameToSend -> TestProducer.RI_sendFrame {
+    Taste::coordinates => "103147 85511 113776 85511 113776 84724 124406 84724";
+  };
+  ImageReceiver_PI_receiveChunk_ImageSender_RI_sendChunk : SUBPROGRAM ACCESS ImageReceiver.PI_receiveChunk -> ImageSender.RI_sendChunk {
+    Taste::coordinates => "148185 86615 163775 86615 163775 83937 179365 83937";
+  };
+  TestConsumer_PI_receiveFrame_ImageReceiver_RI_setReceivedFrame : SUBPROGRAM ACCESS TestConsumer.PI_receiveFrame -> ImageReceiver.RI_setReceivedFrame {
+    Taste::coordinates => "201412 86299 210073 86299 210073 84095 218734 84095";
+  };
+END interfaceview.others;
+
+PROPERTIES
+  Taste::dataView => ("DataView");
+  Taste::dataViewPath => ("DataView.aadl");
+  Taste::coordinates => "0 0 297000 210000";
+  Taste::version => "2.0";
+END interfaceview::IV;
+

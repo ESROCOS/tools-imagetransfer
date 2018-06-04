@@ -1,0 +1,21 @@
+-- H2020 ESROCOS Project
+-- Company: GMV Aerospace & Defence S.A.U.
+-- Licence: GPLv2
+
+
+DataChunk-Types DEFINITIONS ::=
+BEGIN
+
+IMPORTS 
+T-UInt32 FROM TASTE-BasicTypes
+DummyChunk-T, chunkBytes FROM UserDefs-DataChunk-Types;
+
+DataChunk ::= SEQUENCE {
+    index     T-UInt32,   -- zero-based segment index
+    chunkSize T-UInt32,   -- size of the segment in bytes
+    totalSize T-UInt32,   -- size of the whole data in bytes
+    data      OCTET STRING (SIZE (0..chunkBytes))
+}
+
+END
+

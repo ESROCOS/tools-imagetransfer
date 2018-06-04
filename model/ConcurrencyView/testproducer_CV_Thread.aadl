@@ -1,0 +1,29 @@
+--  This file was generated automatically: DO NOT MODIFY IT !
+
+--  This file contains a part of the system CONCURRENCY VIEW.
+--  It is an input file for OCARINA.
+
+package testproducer_CV_Thread
+public
+	with Deployment;
+	with process_package;
+	with Dataview;
+
+THREAD testproducer_testproducer
+features
+	OUTPORT_sendChunk_vt : OUT EVENT DATA PORT DataView::DataChunk_Buffer.impl;
+END testproducer_testproducer;
+
+THREAD IMPLEMENTATION testproducer_testproducer.others
+PROPERTIES
+	Initialize_Entrypoint_Source_Text => "testproducer_wrappers.C_Init_testproducer";
+	Compute_Entrypoint_Source_Text => "testproducer_wrappers.trigger";
+	Dispatch_Protocol => Periodic;
+	Period            => 1000 ms;
+	Dispatch_Offset   => 0 ms;
+	Compute_Execution_Time => 0 ms .. 0 ms;
+	Stack_Size => 5 KByte;
+	Priority => 2;
+END testproducer_testproducer.others;
+
+end testproducer_CV_Thread;

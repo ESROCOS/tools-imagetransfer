@@ -1,0 +1,31 @@
+--  This file was generated automatically: DO NOT MODIFY IT !
+
+--  This file contains a part of the system CONCURRENCY VIEW.
+--  It is an input file for OCARINA.
+
+package imagereceiver_CV_Thread
+public
+	with Deployment;
+	with process_package;
+	with Dataview;
+
+THREAD imagereceiver_imagereceiver
+features
+	INPORT_receiveChunk : IN EVENT DATA PORT DataView::DataChunk_Buffer.impl
+		{ Compute_Execution_Time => 0 ms .. 0 ms;
+		  Queue_Size => 3;
+		  Compute_Entrypoint_Source_Text => "imagereceiver_wrappers.receiveChunk"; };
+END imagereceiver_imagereceiver;
+
+THREAD IMPLEMENTATION imagereceiver_imagereceiver.others
+PROPERTIES
+	Initialize_Entrypoint_Source_Text => "imagereceiver_wrappers.C_Init_imagereceiver";
+	Dispatch_Protocol => Sporadic;
+	Period            => 1 ms;
+	Dispatch_Offset   => 0 ms;
+	Compute_Execution_Time => 0 ms .. 0 ms;
+	Stack_Size => 5 KByte;
+	Priority => 10;
+END imagereceiver_imagereceiver.others;
+
+end imagereceiver_CV_Thread;
