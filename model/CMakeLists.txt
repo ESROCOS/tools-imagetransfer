@@ -2,7 +2,7 @@
 # Company: GMV Aerospace & Defence S.A.U.
 # Licence: GPLv2
 
-esrocos_build_taste(imagetransfer_functions
+esrocos_build_taste(imagetransfer
     SOURCES
     imagereceiver
     imagesender
