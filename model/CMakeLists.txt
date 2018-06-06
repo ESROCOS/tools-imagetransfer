@@ -12,4 +12,5 @@ esrocos_build_taste(imagetransfer
     binary.c/binaries/x86_partition
     DEPENDS
     imagetransfer_types
+    imagetransfer_types_userdefs
 )

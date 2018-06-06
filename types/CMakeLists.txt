@@ -3,4 +3,5 @@
 # Licence: GPLv2
 
 # Install ASN.1 types so that they can be used by the build of the ASN.1 models
-esrocos_preinstall_files(imagetransfer_types types/datachunk DataChunk.asn userdefs-DataChunk.asn userdefs-base.asn)
+esrocos_preinstall_files(imagetransfer_types types/datachunk DataChunk.asn)
+esrocos_preinstall_files(imagetransfer_types_userdefs types/userdefs/datachunk userdefs-DataChunk.asn userdefs-base.asn)
