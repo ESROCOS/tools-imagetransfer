@@ -27,7 +27,7 @@ void testproducer_startup()
     frame.image.nCount = frame.size_val.height * frame.size_val.width * frame.pixel_size;
     
     // Check size just in case (multiply x8 to account for integer withd in TASTE)
-    if (frame.image.nCount * 8 > sizeof(frame.image.arr))
+    if ((size_t)frame.image.nCount * 8 > sizeof(frame.image.arr))
     {
         printf("[ERROR] TestProducer: image size in userdefs-base.asn doesn't match test image size. Exiting...\n");
         exit(1);
