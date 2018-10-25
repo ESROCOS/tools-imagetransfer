@@ -30,6 +30,10 @@ then
     source user_init_pre.sh
 fi
 
+# Set up the cache to limit the calls to ASN1SCC in DMT tools
+mkdir -p .cache
+export PROJECT_CACHE=$(pwd)/.cache
+
 # Use PolyORB-HI-C runtime
 USE_POHIC=1
 

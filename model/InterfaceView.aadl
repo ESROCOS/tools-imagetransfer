@@ -27,6 +27,8 @@ PROPERTIES
 END PI_setFrameToSend.others;
 
 SUBPROGRAM PI_chunkTrigger
+PROPERTIES
+  Taste::Associated_Queue_Size => 1;
 END PI_chunkTrigger;
 
 SUBPROGRAM IMPLEMENTATION PI_chunkTrigger.others
@@ -47,21 +49,21 @@ END RI_sendChunk.others;
 SYSTEM ImageSender
 FEATURES
   PI_setFrameToSend : PROVIDES SUBPROGRAM ACCESS interfaceview::IV::ImageSender::PI_setFrameToSend.others {
-    Taste::coordinates => "124406 84724";
+    Taste::coordinates => "124406 84486";
     Taste::RCMoperationKind => protected;
     Taste::RCMperiod => 0 ms;
     Taste::Deadline => 0 ms;
     Taste::InterfaceName => "setFrameToSend";
   };
   PI_chunkTrigger : PROVIDES SUBPROGRAM ACCESS interfaceview::IV::ImageSender::PI_chunkTrigger.others {
-    Taste::coordinates => "124406 71180";
+    Taste::coordinates => "124406 70942";
     Taste::RCMoperationKind => cyclic;
     Taste::RCMperiod => 100 ms;
     Taste::Deadline => 0 ms;
     Taste::InterfaceName => "chunkTrigger";
   };
   RI_sendChunk : REQUIRES SUBPROGRAM ACCESS interfaceview::IV::ImageReceiver::PI_receiveChunk.others {
-    Taste::coordinates => "148185 86615";
+    Taste::coordinates => "148185 86377";
     Taste::RCMoperationKind => any;
     Taste::InterfaceName => "sendChunk";
     Taste::labelInheritance => "false";
@@ -69,7 +71,6 @@ FEATURES
 PROPERTIES
   Source_Language => (C);
   Taste::Active_Interfaces => any;
-  Source_Text => ("/home/esrocos/esrocos_workspace/install/share/taste_components/imagetransfer_functions/imagesender.zip");
 END ImageSender;
 
 SYSTEM IMPLEMENTATION ImageSender.others
@@ -126,7 +127,6 @@ FEATURES
 PROPERTIES
   Source_Language => (C);
   Taste::Active_Interfaces => any;
-  Source_Text => ("/home/esrocos/esrocos_workspace/install/share/taste_components/imagetransfer_functions/imagereceiver.zip");
 END ImageReceiver;
 
 SYSTEM IMPLEMENTATION ImageReceiver.others
@@ -142,6 +142,8 @@ WITH Taste;
 WITH DataView;
 WITH TASTE_IV_Properties;
 SUBPROGRAM PI_trigger
+PROPERTIES
+  Taste::Associated_Queue_Size => 1;
 END PI_trigger;
 
 SUBPROGRAM IMPLEMENTATION PI_trigger.others
@@ -177,7 +179,6 @@ FEATURES
 PROPERTIES
   Source_Language => (C);
   Taste::Active_Interfaces => any;
-  Source_Text => ("/home/esrocos/esrocos_workspace/install/share/taste_components/imagetransfer_functions/testproducer.zip");
 END TestProducer;
 
 SYSTEM IMPLEMENTATION TestProducer.others
@@ -217,7 +218,6 @@ FEATURES
 PROPERTIES
   Source_Language => (C);
   Taste::Active_Interfaces => any;
-  Source_Text => ("/home/esrocos/esrocos_workspace/install/share/taste_components/imagetransfer_functions/testconsumer.zip");
 END TestConsumer;
 
 SYSTEM IMPLEMENTATION TestConsumer.others
@@ -244,7 +244,7 @@ END interfaceview;
 SYSTEM IMPLEMENTATION interfaceview.others
 SUBCOMPONENTS
   ImageSender : SYSTEM interfaceview::IV::ImageSender::ImageSender.others {
-    Taste::coordinates => "124406 68030 148185 90549";
+    Taste::coordinates => "124406 67792 148185 90311";
   };
   ImageReceiver : SYSTEM interfaceview::IV::ImageReceiver::ImageReceiver.others {
     Taste::coordinates => "179365 68187 201412 89761";
@@ -257,10 +257,10 @@ SUBCOMPONENTS
   };
 CONNECTIONS
   ImageSender_PI_setFrameToSend_TestProducer_RI_sendFrame : SUBPROGRAM ACCESS ImageSender.PI_setFrameToSend -> TestProducer.RI_sendFrame {
-    Taste::coordinates => "103147 85511 113776 85511 113776 84724 124406 84724";
+    Taste::coordinates => "103147 85511 113776 85511 113776 84486 124406 84486";
   };
   ImageReceiver_PI_receiveChunk_ImageSender_RI_sendChunk : SUBPROGRAM ACCESS ImageReceiver.PI_receiveChunk -> ImageSender.RI_sendChunk {
-    Taste::coordinates => "148185 86615 163775 86615 163775 83937 179365 83937";
+    Taste::coordinates => "148185 86377 163775 86377 163775 83937 179365 83937";
   };
   TestConsumer_PI_receiveFrame_ImageReceiver_RI_setReceivedFrame : SUBPROGRAM ACCESS TestConsumer.PI_receiveFrame -> ImageReceiver.RI_setReceivedFrame {
     Taste::coordinates => "201412 86299 210073 86299 210073 84095 218734 84095";

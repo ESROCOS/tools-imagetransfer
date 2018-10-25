@@ -21,8 +21,8 @@ void testproducer_startup()
     frame.data_depth = 8;
     frame.pixel_size = 1;
     frame.row_size = frame.size_val.width * frame.pixel_size;
-    frame.frame_mode = asn1Sccmode_grayscale;
-    frame.frame_status = asn1Sccstatus_valid;
+    frame.frame_mode = asn1Sccbase_samples_frame_frame_mode_t_mode_grayscale;
+    frame.frame_status = asn1Sccbase_samples_frame_frame_status_t_status_valid;
     
     frame.image.nCount = frame.size_val.height * frame.size_val.width * frame.pixel_size;
     
